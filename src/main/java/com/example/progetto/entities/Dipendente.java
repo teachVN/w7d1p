@@ -14,7 +14,6 @@ public class Dipendente {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "sequenza_dipendente")
     @SequenceGenerator(name="sequenza_dipendente",initialValue = 1,allocationSize = 1)
     private int id;
-
     private String nome;
     private String cognome;
     @Column(unique = true)

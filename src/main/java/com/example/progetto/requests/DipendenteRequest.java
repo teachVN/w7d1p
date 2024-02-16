@@ -3,6 +3,7 @@ package com.example.progetto.requests;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
+
 @Data
 public class DipendenteRequest {
     @NotBlank(message = "Non può essere vuoto")

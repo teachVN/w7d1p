@@ -3,6 +3,7 @@ package com.example.progetto.requests;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
+
 @Data
 public class DipendentePatchRequest {
     @Pattern(regexp = ".*[^ ].*",message = "Nome non valido!")

@@ -5,6 +5,7 @@ import com.example.progetto.enums.Tipo;
 import jakarta.persistence.*;
 import lombok.Data;
 
+
 @Data
 @Entity
 @Table(name="dispositivi")

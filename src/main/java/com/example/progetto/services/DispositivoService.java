@@ -3,6 +3,7 @@ package com.example.progetto.services;
 import com.example.progetto.entities.Dipendente;
 import com.example.progetto.entities.Dispositivo;
 import com.example.progetto.enums.Status;
+import com.example.progetto.exceptions.BadRequestException;
 import com.example.progetto.exceptions.NotFoundException;
 import com.example.progetto.repositories.DispositivoRepository;
 import com.example.progetto.requests.DispositivoPatchRequest;
@@ -34,7 +35,9 @@ public class DispositivoService {
         if(d.getTipo()!=null)dispositivo.setTipo(d.getTipo());
         if(d.getStatus()!=null)dispositivo.setStatus(d.getStatus());
         if(d.getStatus()==Status.DISPONIBILE) dispositivo.setDipendente(null);
+
         if(d.getDipendenteId()!=null){
+            if(dispositivo.getStatus()==Status.MANUTENZIONE) throw new BadRequestException("Il dispositivo è in manutenzione");
             Dipendente dipendente=dipendenteService.findById(d.getDipendenteId());
             dispositivo.setStatus(Status.ASSEGNATO);
             dispositivo.setDipendente(dipendente);
@@ -54,6 +57,7 @@ public class DispositivoService {
         dispositivo.setStatus(d.getStatus());
         if(d.getStatus()==Status.DISPONIBILE) dispositivo.setDipendente(null);
         if (d.getDipendenteId()!=null){
+            if(dispositivo.getStatus()==Status.MANUTENZIONE) throw new BadRequestException("Il dispositivo è in manutenzione");
             Dipendente dipendente=dipendenteService.findById(d.getDipendenteId());
             dispositivo.setStatus(Status.ASSEGNATO);
             dispositivo.setDipendente(dipendente);
