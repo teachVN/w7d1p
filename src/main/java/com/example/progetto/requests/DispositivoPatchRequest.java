@@ -9,10 +9,7 @@ import lombok.Data;
 
 @Data
 public class DispositivoPatchRequest {
-    @NotBlank
     private Status status;
-    @NotBlank
     private Tipo tipo;
-    @NotBlank
     private Integer dipendenteId;
 }
