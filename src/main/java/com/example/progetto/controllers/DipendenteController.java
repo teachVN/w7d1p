@@ -25,12 +25,12 @@ import java.util.HashMap;
 @RestController
 @RequestMapping("/api/dipendenti")
 public class DipendenteController {
-    @Autowired
-    private Cloudinary cloudinary;
+//    @Autowired
+//    private Cloudinary cloudinary;
     @Autowired
     private DipendenteService dipendenteService;
-    @Autowired
-    private JavaMailSenderImpl JMS;
+//    @Autowired
+//    private JavaMailSenderImpl JMS;
 
     @GetMapping
     public ResponseEntity<DefaultResponse> getAll(Pageable pageable){
@@ -43,7 +43,7 @@ public class DipendenteController {
     @PostMapping
     public ResponseEntity<DefaultResponse> create(@RequestBody @Validated DipendenteRequest d, BindingResult bR){
         if(bR.hasErrors()) throw new BadRequestException(bR.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
-        sendEmail(d.getEmail());
+       // sendEmail(d.getEmail());
         return DefaultResponse.customMessage("Creato",dipendenteService.save(d),HttpStatus.CREATED);
     }
     @PutMapping("/{id}")
@@ -61,16 +61,16 @@ public class DipendenteController {
         dipendenteService.delete(id);
         return DefaultResponse.noObject("Dipendente con id="+id+" eliminato",HttpStatus.OK);
     }
-    @PatchMapping("/upload/{id}")
-    public ResponseEntity<DefaultResponse> upload(@PathVariable int id,@RequestParam("upload") MultipartFile file) throws IOException, NotFoundException {
-        String url=(String) cloudinary.uploader().upload(file.getBytes(),new HashMap()).get("url");
-        return DefaultResponse.customMessage("ImmagineCaricata",dipendenteService.setFotoProfilo(id,url),HttpStatus.OK);
-    }
-    public void sendEmail(String email){
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(email);
-        message.setSubject("Ciao!");
-        message.setText("So che te l'ho già detto ma, ciao!");
-        JMS.send(message);
-    }
+//    @PatchMapping("/upload/{id}")
+//    public ResponseEntity<DefaultResponse> upload(@PathVariable int id,@RequestParam("upload") MultipartFile file) throws IOException, NotFoundException {
+//        String url=(String) cloudinary.uploader().upload(file.getBytes(),new HashMap()).get("url");
+//        return DefaultResponse.customMessage("ImmagineCaricata",dipendenteService.setFotoProfilo(id,url),HttpStatus.OK);
+//    }
+//    public void sendEmail(String email){
+//        SimpleMailMessage message = new SimpleMailMessage();
+//        message.setTo(email);
+//        message.setSubject("Ciao!");
+//        message.setText("So che te l'ho già detto ma, ciao!");
+//        JMS.send(message);
+//    }
 }
